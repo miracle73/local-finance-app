@@ -1,9 +1,20 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
+import React, { useState } from 'react'
 import AccountListItem from '../components/AccountListItem'
 import AccountsList from '../components/AccountsList'
+import { Entypo } from '@expo/vector-icons'
 
 const accounts = () => {
+  const [name, setName] = useState('')
+  const [cap, setCap] = useState('')
+  const [tap, setTap] = useState('')
+
+  const createAccount = () => {
+    console.log( 'create account that: ', name, cap, tap)
+  }
+  const onRead = () => {
+    console.log('read')
+  }
   return (
     <View style={{gap: 5, padding: 5}}>
       <View>
@@ -12,6 +23,14 @@ const accounts = () => {
         <Text>TAP</Text>
       </View>
      <AccountsList />
+     <View style={styles.inputRow}>
+      <TextInput value={name} onChangeText={(text) => setName(text)} placeholder='Name' style={styles.input}/>
+      <TextInput value={cap} onChangeText={(text) => setCap(text)} placeholder='CAP %' style={styles.input}/>
+      <TextInput value={tap} onChangeText={(text) => setTap(text)} placeholder='TAP %' style={styles.input}/>
+      <Entypo name="check" size={20} color="green" />
+     </View>
+     <Button title="Add Account" onPress={createAccount}/>
+     <Button title="Read" onPress={onRead}/>
     </View>
   )
 }
@@ -21,6 +40,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 10
+  },
+  inputRow: {
+    backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 10
+  },
+  input: {
+
   }
 })
 export default accounts
