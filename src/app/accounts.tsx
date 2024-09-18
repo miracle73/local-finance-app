@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import AccountListItem from '../components/AccountListItem'
 import AccountsList from '../components/AccountsList'
 import { Entypo } from '@expo/vector-icons'
+import database from '../../db'
+import Account from '../../model/Account'
 
 const accounts = () => {
   const [name, setName] = useState('')
@@ -12,8 +14,19 @@ const accounts = () => {
   const createAccount = () => {
     console.log( 'create account that: ', name, cap, tap)
   }
-  const onRead = () => {
-    console.log('read')
+  const onRead = async () => {
+    const accountsCollection = database.get("accounts")
+    // await database.write(async() => {
+    //   await accountsCollection.create((account) => {
+    //     const acc = account as Account;  // Cast account to the Account model
+    //     acc.name = "Test",
+    //     acc.cap = 10.5,
+    //     acc.tap = 20.1
+    //   })
+    // })
+    const accounts = await accountsCollection.query().fetch();
+    console.log(accounts)
+  
   }
   return (
     <View style={{gap: 5, padding: 5}}>
