@@ -20,10 +20,11 @@ const accounts = () => {
     //   await accountsCollection.create((account) => {
     //     const acc = account as Account;  // Cast account to the Account model
     //     acc.name = "Test",
-    //     acc.cap = 10.5,
-    //     acc.tap = 20.1
+    //     acc.cap = 40,
+    //     acc.tap = 50
     //   })
     // })
+    // console.log("done")
     const accounts = await accountsCollection.query().fetch();
     console.log(accounts)
   
