@@ -8,7 +8,7 @@ import Account from "../model/Account";
 const adapter = new SQLiteAdapter({
     schema,
     migrations,
-    jsi: true,
+    jsi: Platform.OS == "ios" && true,
     onSetUpError: error => {
 
     },
@@ -22,3 +22,4 @@ const database = new Database({
     ]
 })
 export default database
+export const accountsCollection = database.get("accounts")
