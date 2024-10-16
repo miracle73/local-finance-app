@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import AccountListItem from '../components/AccountListItem'
-import AccountsList from '../components/AccountsList'
+import EnhancedAccountList from '../components/AccountsList'
 import { Entypo } from '@expo/vector-icons'
 import database, { accountsCollection } from '../../db'
 import Account from '../../model/Account'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const accounts = () => {
   const [name, setName] = useState('')
@@ -26,21 +27,32 @@ const accounts = () => {
     setCap("")
   }
   const onRead = async () => {
-
-
-    // console.log("done")
     const accounts = await accountsCollection.query().fetch();
     console.log(accounts)
 
   }
+  const onTest = async () => {
+    await database.write(async() => {
+      const accounts = await accountsCollection.query().fetch();
+      const account = accounts[0]
+      account.update(updatedAccount => {
+        updatedAccount.name = "2"
+      })
+    })
+  }
   return (
-    <View style={{ gap: 5, padding: 5 }}>
+
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1, gap: 5, padding: 5 }}
+      keyboardShouldPersistTaps='handled'
+      showsVerticalScrollIndicator={false}
+    >
       <View>
         <Text>Name</Text>
         <Text>CAP</Text>
         <Text>TAP</Text>
       </View>
-      <AccountsList />
+      <EnhancedAccountList />
       <View style={styles.inputRow}>
         <TextInput value={name} onChangeText={(text) => setName(text)} placeholder='Name' style={styles.input} />
         <TextInput value={cap} onChangeText={(text) => setCap(text)} placeholder='CAP %' style={styles.input} />
@@ -49,7 +61,8 @@ const accounts = () => {
       </View>
       <Button title="Add Account" onPress={createAccount} />
       <Button title="Read" onPress={onRead} />
-    </View>
+      <Button title="Test Update" onPress={onTest} />
+    </KeyboardAwareScrollView>
   )
 }
 

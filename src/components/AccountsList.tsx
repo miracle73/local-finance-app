@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import AccountListItem from './AccountListItem'
 import { FlatList } from 'react-native'
 import { accountsCollection} from '../../db'
 import { Model } from '@nozbe/watermelondb'
+import {withObservables} from '@nozbe/watermelondb/react'
 
 const AccountsList = () => {
   const [accounts, setAccounts] = useState<Model[]>([])
@@ -16,16 +17,23 @@ const AccountsList = () => {
   }, [])
   console.log(accounts, 4)
   return (
-    <View>
-      <FlatList
+    <ScrollView   showsVerticalScrollIndicator={false}>
+      {/* <FlatList
         data={accounts}
         contentContainerStyle={{ gap: 5 }}
-        renderItem={() => <AccountListItem />}
-      />
+        renderItem={(item) => <AccountListItem account={item} />}
+      /> */}
+
+      {accounts.map((account: any, index: any) => <View key={index} style={{gap: 5}}><AccountListItem account={account}/></View>)}
 
 
-    </View>
+    </ScrollView>
   )
 }
 
+const enhance = withObservables([], () => {
+  accounts: accountsCollection.query()
+})
+
+const EnhancedAccountList = enhance(AccountsList)
 export default AccountsList

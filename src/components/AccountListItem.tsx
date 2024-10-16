@@ -1,12 +1,17 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
+import Account from '../../model/Account'
 
-const AccountListItem = () => {
+interface AccountListItem {
+    account: Account
+}
+
+const AccountListItem = ({account}: AccountListItem) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.name}>Profit</Text>
-            <Text style={styles.percentage}>10%</Text>
-            <Text style={styles.percentage}>20%</Text>
+            <Text style={styles.name}>{account.name || "N/A"}</Text>
+            <Text style={styles.percentage}>{account.cap}</Text>
+            <Text style={styles.percentage}>{account.tap}</Text>
         </View>
     )
 }
