@@ -5,17 +5,18 @@ import { FlatList } from 'react-native'
 import { accountsCollection} from '../../db'
 import { Model } from '@nozbe/watermelondb'
 import {withObservables} from '@nozbe/watermelondb/react'
+import Account from '../../model/Account'
 
-const AccountsList = () => {
-  const [accounts, setAccounts] = useState<Model[]>([])
-  useEffect(() => {
-    const fetchAccounts = async () => {
-      const accounts = await accountsCollection.query().fetch()
-      setAccounts(accounts)
-    }
-    fetchAccounts()
-  }, [])
-  console.log(accounts, 4)
+const AccountsList = ({accounts}: {accounts: Account[]}) => {
+  // const [accounts, setAccounts] = useState<Model[]>([])
+  // useEffect(() => {
+  //   const fetchAccounts = async () => {
+  //     const accounts = await accountsCollection.query().fetch()
+  //     setAccounts(accounts)
+  //   }
+  //   fetchAccounts()
+  // }, [])
+  // console.log(accounts, 4)
   return (
     <ScrollView   showsVerticalScrollIndicator={false}>
       {/* <FlatList
@@ -36,4 +37,4 @@ const enhance = withObservables([], () => {
 })
 
 const EnhancedAccountList = enhance(AccountsList)
-export default AccountsList
+export default EnhancedAccountList
