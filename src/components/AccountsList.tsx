@@ -7,8 +7,9 @@ import { Model } from '@nozbe/watermelondb'
 import {withObservables} from '@nozbe/watermelondb/react'
 import Account from '../../model/Account'
 
+
 const AccountsList = ({accounts}: {accounts: Account[]}) => {
-  // const [accounts, setAccounts] = useState<Model[]>([])
+  // const [accounts, setAccounts] = useState<Account[]>([])
   // useEffect(() => {
   //   const fetchAccounts = async () => {
   //     const accounts = await accountsCollection.query().fetch()
@@ -16,7 +17,7 @@ const AccountsList = ({accounts}: {accounts: Account[]}) => {
   //   }
   //   fetchAccounts()
   // }, [])
-  // console.log(accounts, 4)
+  console.log(accounts, 4)
   return (
     <ScrollView   showsVerticalScrollIndicator={false}>
       {/* <FlatList
@@ -32,9 +33,9 @@ const AccountsList = ({accounts}: {accounts: Account[]}) => {
   )
 }
 
-const enhance = withObservables([], () => {
+const enhance = withObservables([], () => ({
   accounts: accountsCollection.query()
-})
+}))
 
 const EnhancedAccountList = enhance(AccountsList)
 export default EnhancedAccountList

@@ -36,7 +36,7 @@ const accounts = () => {
       const accounts = await accountsCollection.query().fetch();
       const account = accounts[0]
       account.update(updatedAccount => {
-        updatedAccount.name = "2"
+        updatedAccount.name = "5"
       })
     })
   }
