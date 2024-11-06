@@ -4,6 +4,7 @@ import { Link, router, Stack } from 'expo-router'
 import database, { accountsCollection, allocationsCollection } from '../../../db'
 import { withObservables } from '@nozbe/watermelondb/react'
 import Account from '../../../model/Account'
+import Allocation from '../../../model/Allocation'
 
 const newAllocations = ({ accounts }: { accounts: Account[] }) => {
   const [income, setIncome] = useState("0")
@@ -14,6 +15,7 @@ const newAllocations = ({ accounts }: { accounts: Account[] }) => {
         newAllocation.income = Number.parseFloat(income)
       })
     })
+    // Allocation.create(Number.parseFloat(income))
     setIncome("")
     router.push('allocations/home');
   }
